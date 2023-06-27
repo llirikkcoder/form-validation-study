@@ -2,14 +2,14 @@ import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { TextField } from '@mui/material';
+import AbstractTextField from './AbstractTextField';
 
 const schema = yup.object().shape({
   name: yup.string().required('Имя обязательно'),
   email: yup.string().required('Email обязателен').email('Неверный формат email'),
 });
 
-const MagicFormMui = () => {
+const App = () => {
   const {
     control,
     handleSubmit,
@@ -36,15 +36,13 @@ const MagicFormMui = () => {
             name="name"
             control={control}
             render={({ field }) => (
-              <TextField
+              <AbstractTextField
                 {...field}
-                error={!!errors.name}
-                helperText={errors.name && errors.name.message}
-                fullWidth
-                variant="outlined"
+                formState={{ errors }}
               />
             )}
           />
+          {errors.name && <span>{errors.name.message}</span>}
         </div>
         <div>
           <label htmlFor="email">Email:</label>
@@ -52,15 +50,13 @@ const MagicFormMui = () => {
             name="email"
             control={control}
             render={({ field }) => (
-              <TextField
+              <AbstractTextField
                 {...field}
-                error={!!errors.email}
-                helperText={errors.email && errors.email.message}
-                fullWidth
-                variant="outlined"
+                formState={{ errors }}
               />
             )}
           />
+          {errors.email && <span>{errors.email.message}</span>}
         </div>
         <button type="submit">Отправить</button>
       </form>
@@ -68,4 +64,5 @@ const MagicFormMui = () => {
   );
 };
 
-export default MagicFormMui;
+export default App;
+
