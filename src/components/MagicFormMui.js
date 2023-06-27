@@ -1,10 +1,8 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Input } from '@mui/material';
-
-const style = {color: "red", paddingLeft: '10px'}
+import { TextField } from '@mui/material';
 
 const schema = yup.object().shape({
   name: yup.string().required('Имя обязательно'),
@@ -13,7 +11,7 @@ const schema = yup.object().shape({
 
 const MagicFormMui = () => {
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
     reset,
@@ -30,17 +28,39 @@ const MagicFormMui = () => {
 
   return (
     <div>
-      <h1>Magic MUI Форма:</h1>
+      <h1>Форма</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="name">Имя:</label>
-          <Input type="text" id="name" {...register('name')} />
-          {errors.name && <span style={style}>{errors.name.message}</span>}
+          <Controller
+            name="name"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                error={!!errors.name}
+                helperText={errors.name && errors.name.message}
+                fullWidth
+                variant="outlined"
+              />
+            )}
+          />
         </div>
         <div>
           <label htmlFor="email">Email:</label>
-          <Input type="text" id="email" {...register('email')} />
-          {errors.email && <span style={style}>{errors.email.message}</span>}
+          <Controller
+            name="email"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                error={!!errors.email}
+                helperText={errors.email && errors.email.message}
+                fullWidth
+                variant="outlined"
+              />
+            )}
+          />
         </div>
         <button type="submit">Отправить</button>
       </form>
@@ -49,5 +69,3 @@ const MagicFormMui = () => {
 };
 
 export default MagicFormMui;
-
-
