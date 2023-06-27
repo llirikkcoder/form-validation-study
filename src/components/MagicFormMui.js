@@ -31,12 +31,12 @@ const App = () => {
       <h1>Форма</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label htmlFor="name">Имя:</label>
           <Controller
             name="name"
             control={control}
             render={({ field }) => (
               <AbstractTextField
+                selectLabel="Имя"
                 {...field}
                 formState={{ errors }}
               />
@@ -44,13 +44,13 @@ const App = () => {
           />
           {errors.name && <span>{errors.name.message}</span>}
         </div>
-        <div>
-          <label htmlFor="email">Email:</label>
+        <div style={{paddingTop: '20px'}}>
           <Controller
             name="email"
             control={control}
             render={({ field }) => (
               <AbstractTextField
+                selectLabel="Email"
                 {...field}
                 formState={{ errors }}
               />

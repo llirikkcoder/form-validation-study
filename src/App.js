@@ -1,4 +1,3 @@
-// import logo from './logo.svg';
 import './App.css';
 import MagicForm from './components/MagicForm';
 import MagicFormMui from './components/MagicFormMui';
